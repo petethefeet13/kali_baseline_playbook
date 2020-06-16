@@ -83,6 +83,7 @@
          - { repo: 'https://github.com/BloodHoundAD/Bloodhound', dest: Recon/Bloodhound }      
          - { repo: 'https://github.com/FluxionNetwork/fluxion.git', dest: Wireless/Fluxion }
          - { repo: 'https://github.com/drwetter/testssl.sh.git', dest: Web/Testssl }
+         - { repo: 'https://github.com/petethefeet13/usergen.git', dest: Windows/Usergen }
 
 # -------------------------- INSTALL PACKAGES
 
