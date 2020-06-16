@@ -1,0 +1,233 @@
+---
+
+# Handy Ansible script to install a number of tools.
+# I have a number of files locally that I upload, Cobalt Strike
+# Burp Installer and some launchers.
+# 
+# These are in the following structure:
+#
+# /Files
+#  |- Burp
+#   - burpsuite_pro_linux_v2020_5.sh
+#  |- Cobalt
+#   |- Cobaltstrike-v3
+#   |- Cobaltstrike-v4
+#    - .cobaltstrike.licence
+#    - cobalt.desktop
+#  |- Misc
+#   - postman.desktop
+
+# Make sure your SSH keys are in for root user and you have PermitRootLogin to 'yes' or 'prohibit-password'
+
+ 
+
+- name: Kali Linux Base Setup
+  gather_facts: true
+  hosts: kali
+#  become: true
+  ignore_errors: yes
+  tasks:
+
+     - name: Enable SSH
+       service:
+         name: ssh
+         enabled: yes
+
+# ---------------------- FOLDER STRUCTURE
+
+     - name: Create Directory Structure
+       file:
+         path: "{{item.dir}}"
+         state: directory
+         mode: 0755
+         group: root
+         owner: root
+       loop:
+         - { dir: /Data }
+         - { dir: /Tools}
+         - { dir: /Tools/Windows }
+         - { dir: /Tools/Wireless }
+         - { dir: /Tools/Linux }
+         - { dir: /Tools/Misc}
+         - { dir: /Tools/Recon }
+         - { dir: /Tools/Web }
+         - { dir: /root/.local/share/applications }
+
+# -------------------------- UPLOAD BURP
+
+     - name: Upload Burp Installer
+       copy:
+         src: /Files/Burp/burpsuite_pro_linux_v2020_5.sh
+         dest: /Tools/Web/burpsuite_pro_linux_v2020_5.sh
+
+
+
+# -------------------------- TOOLS FROM GIT
+
+     - name: Grabbing Tools
+       git:
+         repo: "{{ item.repo }}"
+         dest: "/Tools/{{ item.dest }}"
+         clone: yes
+         update: yes
+         force: yes
+       loop:
+         - { repo: 'https://github.com/PowerShellMafia/PowerSploit.git', dest: Windows/Powersploit }
+         - { repo: 'https://github.com/stackp/Droopy.git', dest: Misc/Droopy }
+         - { repo: 'https://github.com/Hackplayers/evil-winrm.git', dest: Windows/Evil-WinRM }
+         - { repo: 'https://github.com/BastilleResearch/mousejack.git', dest: Wireless/MouseJack }
+         - { repo: 'https://github.com/insecurityofthings/jackit.git', dest: Wireless/JackIT }
+         - { repo: 'https://github.com/bytecod3r/Cobaltstrike-Aggressor-Scripts-Collection', dest: Cobalt/Scripts/bytecod3r-collection }
+         - { repo: 'https://github.com/vysecurity/Aggressor-VYSEC', dest: Cobalt/Scripts/Aggressor-VYSEC }
+         - { repo: 'https://github.com/SecureAuthCorp/impacket.git', dest: Windows/Impacket }
+         - { repo: 'https://github.com/BloodHoundAD/Bloodhound', dest: Recon/Bloodhound }      
+         - { repo: 'https://github.com/FluxionNetwork/fluxion.git', dest: Wireless/Fluxion }
+         - { repo: 'https://github.com/drwetter/testssl.sh.git', dest: Web/Testssl }
+
+# -------------------------- INSTALL PACKAGES
+
+
+     - name: Adding Repo GPG Keys
+       apt_key:
+         url: "{{item.key}}"
+         state: present
+       loop:
+ #        - { key: 'https://dl-ssl.google.com/linux/linux_signing_key.pub' }
+         - { key: 'https://debian.neo4j.com/neotechnology.gpg.key' }
+
+     - name: Adding Repo's
+       apt_repository:
+         repo: "{{item.repo}}"
+         state: present
+       loop:
+#         - { repo: 'deb http://dl.google.com/linux/chrome/deb/ stable main' }
+         - { repo: 'deb https://debian.neo4j.com stable 4.0' }
+
+     - name: Run apt update
+       apt:
+         update_cache: yes
+
+     - name: Install a list of packages
+       apt:
+         pkg:
+         - python3-pip
+         - apt-transport-https
+         - neo4j
+         - npm
+         - powershell
+         - nfs-common
+         - rpcbind
+         - ftp
+         - google-chrome-stable
+         - hash-identifier
+         - crackmapexec
+         - powersploit
+         - ufw
+
+# -------------------------- PIP INSTALL
+
+     - name: Installing Pip packages
+       pip:
+         name:
+           - pipenv
+
+
+
+# ------------------------- INSTALL POSTMAN
+
+     - name: Upload Postman Launcher
+       copy:
+         src: /Files/Misc/postman.desktop
+         dest: /root/.local/share/applications/postman.desktop
+
+     - name: Download Postman
+       unarchive:
+         src: https://dl.pstmn.io/download/latest/linux64
+         dest: /Tools/Web
+         remote_src: yes
+
+     - name: Create a symbolic link
+       file:
+         src: "{{item.src}}"
+         dest: "{{item.dest}}"
+         owner: root
+         group: root
+         state: link
+       loop:
+         - { src: '/Tools/Web/Postman/app/Postman', dest: /usr/bin/postman }
+
+# ------------------------- INSTALL GEMS
+
+     - name: Install Gem Tools  
+       gem:
+         name: "{{ item.gem }}"
+         state: latest
+       loop:
+         - { gem: evil-winrm }
+
+
+# ------------------------- CONFIGURE UFW
+
+     - name: Set UFW to DENY ALL
+       ufw:
+         state: enabled
+         policy: deny
+
+     - name: Allow SSH
+       ufw:
+         rule: allow
+         port: '22'
+         proto: tcp
+
+# -------------------------- UPLOAD COBALT
+
+     - name: Upload CobaltStrike
+       copy:
+         src: /Files/Cobalt
+         dest: /Tools/
+
+     - name: Change file ownership, group and permissions
+       file:
+         path: "/Tools/Cobalt/{{item.file}}"
+         owner: root
+         group: root
+         mode: '755'
+       loop:
+         - { file: 'Cobaltstrike-v3/agscript' }
+         - { file: 'Cobaltstrike-v3/c2lint' }
+         - { file: 'Cobaltstrike-v3/cobaltstrike' }
+         - { file: 'Cobaltstrike-v3/peclone' }
+         - { file: 'Cobaltstrike-v3/teamserver' }
+         - { file: 'Cobaltstrike-v3/update' }
+         - { file: 'Cobaltstrike-v4/agscript' }
+         - { file: 'Cobaltstrike-v4/c2lint' }
+         - { file: 'Cobaltstrike-v4/cobaltstrike' }
+         - { file: 'Cobaltstrike-v4/peclone' }
+         - { file: 'Cobaltstrike-v4/teamserver' }
+         - { file: 'Cobaltstrike-v4/update' }
+
+     - name: Create links for key and launcher
+       file:
+         src: "/Tools/Cobalt/{{item.src}}"
+         dest: "/root/{{item.dest}}"
+         owner: root
+         group: root
+         state: link
+       loop:
+         - { src: 'cobalt.desktop', dest: .local/share/applications/cobalt.desktop }
+         - { src: '.cobaltstrike.license', dest: .cobaltstrike.license }
+
+     - name: Updating Cobalt v4
+       shell:
+         chdir: "/Tools/Cobalt/Cobaltstrike-v4"
+         cmd: ./update
+
+# -------------------------- DOWNLOAD WORKSTATION
+
+#     - name: Download VMWare Workstation
+#       get_url:
+#         url: "{{item.url}}"
+#         dest: "{{item.dest}}"
+#         mode: '0755'
+#       loop:
+#         - { url: 'https://www.vmware.com/go/getworkstation-linux', dest: /Tools/Misc' }
