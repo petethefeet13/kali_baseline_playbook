@@ -19,3 +19,17 @@
 
  Make sure your SSH keys are in for root user and you have PermitRootLogin to 'yes' or 'prohibit-password'
  kali_baseline_playbook
+
+-----------------------
+
+example host file:
+
+    [kali]
+    127.0.0.1
+    
+    [kali:vars]
+    ansible_python_interpreter=/usr/bin/python3
+    
+
+------------------------
+
