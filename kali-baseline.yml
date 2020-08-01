@@ -124,6 +124,7 @@
          - crackmapexec
          - powersploit
          - ufw
+         - veil
 
 # -------------------------- PIP INSTALL
 
