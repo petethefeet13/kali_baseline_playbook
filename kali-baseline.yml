@@ -51,6 +51,7 @@
          - { dir: /Tools/Misc}
          - { dir: /Tools/Recon }
          - { dir: /Tools/Web }
+         - { dir: /Tools/Frameworks }
          - { dir: /root/.local/share/applications }
 
 # -------------------------- UPLOAD BURP
@@ -83,7 +84,9 @@
          - { repo: 'https://github.com/BloodHoundAD/Bloodhound', dest: Recon/Bloodhound }      
          - { repo: 'https://github.com/FluxionNetwork/fluxion.git', dest: Wireless/Fluxion }
          - { repo: 'https://github.com/drwetter/testssl.sh.git', dest: Web/Testssl }
-         - { repo: 'https://github.com/petethefeet13/usergen.git', dest: Windows/Usergen }
+         - { repo: 'https://github.com/ptf569/usergen.git', dest: Windows/Usergen }
+         - { repo: 'https://github.com/michenriksen/gitrob.git', dest: Recon/Gitrob }
+         - { repo: 'https://github.com/mhaskar/Octopus.git', dest: Frameworks/OctopusC2 }
 
 # -------------------------- INSTALL PACKAGES
 
@@ -186,11 +189,11 @@
      - name: Upload CobaltStrike
        copy:
          src: /Files/Cobalt
-         dest: /Tools/
+         dest: /Tools/Frameworks/
 
      - name: Change file ownership, group and permissions
        file:
-         path: "/Tools/Cobalt/{{item.file}}"
+         path: "/Tools/Frameworks/Cobalt/{{item.file}}"
          owner: root
          group: root
          mode: '755'
@@ -210,7 +213,7 @@
 
      - name: Create links for key and launcher
        file:
-         src: "/Tools/Cobalt/{{item.src}}"
+         src: "/Tools/Frameworks/Cobalt/{{item.src}}"
          dest: "/root/{{item.dest}}"
          owner: root
          group: root
@@ -221,7 +224,7 @@
 
      - name: Updating Cobalt v4
        shell:
-         chdir: "/Tools/Cobalt/Cobaltstrike-v4"
+         chdir: "/Tools/Frameworks/Cobalt/Cobaltstrike-v4"
          cmd: ./update
 
 # -------------------------- DOWNLOAD WORKSTATION
