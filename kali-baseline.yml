@@ -53,6 +53,7 @@
          - { dir: /Tools/Web }
          - { dir: /Tools/Frameworks }
          - { dir: /Tools/Enum }
+         - { dir: /Tools/Cloud }
          - { dir: /root/.local/share/applications }
 
 # -------------------------- UPLOAD BURP
@@ -99,7 +100,9 @@
          - { repo: 'https://github.com/CausticKirbyZ/Cisco7.git', dest: Misc/Cisco7 }
          - { repo: 'https://github.com/axcheron/cisco_pwdecrypt.git', dest: Misc/Cisco_pwdecrypt }
          - { repo: 'https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git', dest: Enum/PEASS }
-
+         - { repo: 'https://github.com/toniblyx/prowler', dest: Cloud/Prowler }
+         - { repo: 'https://github.com/andresriancho/enumerate-iam.git', dest: Cloud/enumerate-iam }
+         - { repo: 'https://github.com/nettitude/PoshC2', dest: Frameworks/PoshC2 }
 
 # -------------------------- INSTALL PACKAGES
 
@@ -148,7 +151,7 @@
        pip:
          name:
            - pipenv
-
+           - s3recon
 
 
 # ------------------------- INSTALL POSTMAN
