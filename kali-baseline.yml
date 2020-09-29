@@ -103,6 +103,8 @@
          - { repo: 'https://github.com/toniblyx/prowler', dest: Cloud/Prowler }
          - { repo: 'https://github.com/andresriancho/enumerate-iam.git', dest: Cloud/enumerate-iam }
          - { repo: 'https://github.com/nettitude/PoshC2', dest: Frameworks/PoshC2 }
+         - { repo: 'https://github.com/samratashok/ADModule', dest: Windows/ADModule }
+
 
 # -------------------------- INSTALL PACKAGES
 
