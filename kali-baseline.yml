@@ -106,6 +106,7 @@
          - { repo: 'https://github.com/samratashok/ADModule', dest: Windows/ADModule }
          - { repo: 'https://github.com/Cn33liz/p0wnedShell', dest: Windows/p0wnedShell }
          - { repo: 'https://github.com/samratashok/nishang.git', dest: Windows/nishang }
+         - { repo: 'https://github.com/besimorhino/powercat.git', dest: Windows/Powercat }
 
 # -------------------------- INSTALL PACKAGES
 
