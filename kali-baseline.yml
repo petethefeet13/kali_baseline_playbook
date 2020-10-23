@@ -107,6 +107,7 @@
          - { repo: 'https://github.com/Cn33liz/p0wnedShell', dest: Windows/p0wnedShell }
          - { repo: 'https://github.com/samratashok/nishang.git', dest: Windows/nishang }
          - { repo: 'https://github.com/besimorhino/powercat.git', dest: Windows/Powercat }
+         - { repo: 'https://github.com/ropnop/kerbrute.git', dest: Windows/Kerbrute }
 
 # -------------------------- INSTALL PACKAGES
 
@@ -124,7 +125,6 @@
          repo: "{{item.repo}}"
          state: present
        loop:
-#         - { repo: 'deb http://dl.google.com/linux/chrome/deb/ stable main' }
          - { repo: 'deb https://debian.neo4j.com stable 4.0' }
 
      - name: Run apt update
@@ -135,6 +135,7 @@
        apt:
          pkg:
          - python3-pip
+         - software-properties-common
          - apt-transport-https
          - neo4j
          - npm
@@ -142,12 +143,14 @@
          - nfs-common
          - rpcbind
          - ftp
-         - google-chrome-stable
+         - chromium
          - hash-identifier
          - crackmapexec
          - powersploit
          - ufw
          - veil
+         - ftp
+         - lftp
 
 # -------------------------- PIP INSTALL
 
