@@ -108,6 +108,8 @@
          - { repo: 'https://github.com/samratashok/nishang.git', dest: Windows/nishang }
          - { repo: 'https://github.com/besimorhino/powercat.git', dest: Windows/Powercat }
          - { repo: 'https://github.com/ropnop/kerbrute.git', dest: Windows/Kerbrute }
+         - { repo: 'https://github.com/danielmiessler/SecLists.git', dest: /usr/share/wordlists/SecLists }
+
 
 # -------------------------- INSTALL PACKAGES
 
