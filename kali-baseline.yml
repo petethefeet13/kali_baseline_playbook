@@ -109,7 +109,9 @@
          - { repo: 'https://github.com/besimorhino/powercat.git', dest: Windows/Powercat }
          - { repo: 'https://github.com/ropnop/kerbrute.git', dest: Windows/Kerbrute }
          - { repo: 'https://github.com/danielmiessler/SecLists.git', dest: /usr/share/wordlists/SecLists }
-
+         - { repo: 'https://github.com/honze-net/nmap-bootstrap-xsl', dest: Enum/namp-bootstrap }
+         - { repo: 'https://attackdefense.pentesteracademy.com/challengedetailsnoauth?cid=2132', dest: Enum/BruteShark }
+         - { repo: 'https://github.com/danielbohannon/Invoke-Obfuscation.git', dest: Frameworks/Cobalt }
 
 # -------------------------- INSTALL PACKAGES
 
@@ -260,4 +262,4 @@
 #         dest: "{{item.dest}}"
 #         mode: '0755'
 #       loop:
-#         - { url: 'https://www.vmware.com/go/getworkstation-linux', dest: /Tools/Misc' }
+#         - { url: 'https://www.vmware.com/go/getworkstation-linux', dest: /Tools/Misc/workstation' }
