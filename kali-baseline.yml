@@ -24,7 +24,9 @@
 - name: Kali Linux Base Setup
   gather_facts: true
   hosts: kali
-#  become: true
+  become: true
+  become_user: root
+  become_method: su
   ignore_errors: yes
   tasks:
 
@@ -110,8 +112,12 @@
          - { repo: 'https://github.com/ropnop/kerbrute.git', dest: Windows/Kerbrute }
          - { repo: 'https://github.com/danielmiessler/SecLists.git', dest: /usr/share/wordlists/SecLists }
          - { repo: 'https://github.com/honze-net/nmap-bootstrap-xsl', dest: Enum/namp-bootstrap }
-         - { repo: 'https://attackdefense.pentesteracademy.com/challengedetailsnoauth?cid=2132', dest: Enum/BruteShark }
+         - { repo: 'https://github.com/odedshimon/BruteShark.git', dest: Enum/BruteShark }
          - { repo: 'https://github.com/danielbohannon/Invoke-Obfuscation.git', dest: Frameworks/Cobalt }
+         - { repo: 'https://github.com/nagygergo/jetbrains-toolbox-install.git', dest: Misc/JetBrains }
+
+     - name: Install JetBrains Toolkit
+       ansible.builtin.shell: /Tools/Misc/JetBrains/jetbrains-toolbox.sh
 
 # -------------------------- INSTALL PACKAGES
 
@@ -147,7 +153,6 @@
          - nfs-common
          - rpcbind
          - ftp
-         - chromium
          - hash-identifier
          - crackmapexec
          - powersploit
