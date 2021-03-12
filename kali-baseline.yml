@@ -82,8 +82,8 @@
          - { repo: 'https://github.com/Hackplayers/evil-winrm.git', dest: Windows/Evil-WinRM }
          - { repo: 'https://github.com/BastilleResearch/mousejack.git', dest: Wireless/MouseJack }
          - { repo: 'https://github.com/insecurityofthings/jackit.git', dest: Wireless/JackIT }
-         - { repo: 'https://github.com/bytecod3r/Cobaltstrike-Aggressor-Scripts-Collection', dest: Cobalt/Scripts/bytecod3r-collection }
-         - { repo: 'https://github.com/vysecurity/Aggressor-VYSEC', dest: Cobalt/Scripts/Aggressor-VYSEC }
+         - { repo: 'https://github.com/bytecod3r/Cobaltstrike-Aggressor-Scripts-Collection', dest: Frameworks/Cobalt/Scripts/bytecod3r-collection }
+         - { repo: 'https://github.com/vysecurity/Aggressor-VYSEC', dest: Frameworks/Cobalt/Scripts/Aggressor-VYSEC }
          - { repo: 'https://github.com/SecureAuthCorp/impacket.git', dest: Windows/Impacket }
          - { repo: 'https://github.com/BloodHoundAD/Bloodhound', dest: Recon/Bloodhound }      
          - { repo: 'https://github.com/FluxionNetwork/fluxion.git', dest: Wireless/Fluxion }
@@ -113,11 +113,12 @@
          - { repo: 'https://github.com/danielmiessler/SecLists.git', dest: /usr/share/wordlists/SecLists }
          - { repo: 'https://github.com/honze-net/nmap-bootstrap-xsl', dest: Enum/namp-bootstrap }
          - { repo: 'https://github.com/odedshimon/BruteShark.git', dest: Enum/BruteShark }
-         - { repo: 'https://github.com/danielbohannon/Invoke-Obfuscation.git', dest: Frameworks/Cobalt }
+         - { repo: 'https://github.com/danielbohannon/Invoke-Obfuscation.git', dest: Frameworks/Cobalt/Invoke-Obfuscation }
          - { repo: 'https://github.com/nagygergo/jetbrains-toolbox-install.git', dest: Misc/JetBrains }
+         - { repo: 'https://github.com/ptf569/C2concealer.git', dest: Frameworks/Cobalt/C2concealer }
 
-     - name: Install JetBrains Toolkit
-       ansible.builtin.shell: /Tools/Misc/JetBrains/jetbrains-toolbox.sh
+#     - name: Install JetBrains Toolkit
+#       ansible.builtin.shell: /Tools/Misc/JetBrains/jetbrains-toolbox.sh
 
 # -------------------------- INSTALL PACKAGES
 
