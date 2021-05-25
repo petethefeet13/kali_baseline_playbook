@@ -77,7 +77,7 @@
          update: yes
          force: yes
        loop:
-         - { repo: 'https://github.com/PowerShellMafia/PowerSploit.git', dest: Windows/Powersploit }
+         - { repo: 'https://github.com/PowerShellMafia/PowerSploit.git', dest: Windows/PowerSploit }
          - { repo: 'https://github.com/stackp/Droopy.git', dest: Misc/Droopy }
          - { repo: 'https://github.com/Hackplayers/evil-winrm.git', dest: Windows/Evil-WinRM }
          - { repo: 'https://github.com/BastilleResearch/mousejack.git', dest: Wireless/MouseJack }
@@ -116,6 +116,10 @@
          - { repo: 'https://github.com/danielbohannon/Invoke-Obfuscation.git', dest: Frameworks/Cobalt/Invoke-Obfuscation }
          - { repo: 'https://github.com/nagygergo/jetbrains-toolbox-install.git', dest: Misc/JetBrains }
          - { repo: 'https://github.com/ptf569/C2concealer.git', dest: Frameworks/Cobalt/C2concealer }
+         - { repo: 'https://github.com/lgandx/Responder.git', dest: Windows/Responder }
+         - { repo: 'https://github.com/pentestmonkey/gateway-finder.git', dest: Enum/gateway-finder }
+
+ 
 
 #     - name: Install JetBrains Toolkit
 #       ansible.builtin.shell: /Tools/Misc/JetBrains/jetbrains-toolbox.sh
